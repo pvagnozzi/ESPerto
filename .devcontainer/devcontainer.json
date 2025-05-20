@@ -1,0 +1,33 @@
+{
+    "name": "ESPerto DevContainer",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/pwsh:1": {},
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/cmake:1": {},
+        "ghcr.io/devcontainers/features/python:1": {},
+        "ghcr.io/devcontainers/features/platformio:1": {},
+        "ghcr.io/devcontainers/features/esp-idf:1": {
+            "version": "5.1.2"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+                "idf.espIdfPath": "/opt/esp/idf"
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "platformio.platformio-ide",
+                "espressif.esp-idf-extension",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+    ],
+    "workspaceFolder": "/workspace"
+}

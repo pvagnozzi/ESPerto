@@ -8,10 +8,6 @@
 #include "esp_https_ota.h"
 #include "ota_wifi.h"
 
-#define WIFI_SSID      "YOUR_WIFI_SSID"
-#define WIFI_PASS      "YOUR_WIFI_PASSWORD"
-#define OTA_URL        "https://your-server.com/firmware.bin"
-
 static const char *TAG = "ota_wifi";
 
 static void wifi_init_sta(void)

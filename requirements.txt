@@ -1,0 +1,4 @@
+pytest
+pytest-embedded
+pytest-rerunfailures
+pytest-ignore-test-results
