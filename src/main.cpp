@@ -1,5 +1,5 @@
-// main.c
-// ESPerto main application entry point
+// main.cpp
+// ESPerto main application entry point (C++)
 //
 // This file initializes the ESP32, prints chip information, starts OTA WiFi update,
 // and manages the main restart loop. See README.md for project details.
@@ -8,19 +8,21 @@
 // Date: 2025-05-20
 // License: MIT
 
-#include <stdio.h>
+extern "C" {
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_chip_info.h"
 #include "esp_flash.h"
 #include "ota_wifi.h"
+}
+#include <cstdio>
 
-void app_main(void)
+extern "C" void app_main(void)
 {
     printf("Hello world!\n");
 
-    // Avvia OTA WiFi (modifica l'URL e le credenziali in ota_wifi.c)
+    // Avvia OTA WiFi (modifica l'URL e le credenziali in ota_wifi.cpp)
     start_wifi_ota_task(OTA_URL);
 
     /* Print chip information */
