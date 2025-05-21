@@ -1,3 +1,13 @@
+// ota_wifi.c
+// ESPerto OTA WiFi update implementation
+//
+// This file provides functions to connect to WiFi and perform OTA updates
+// using HTTPS. It is designed for ESP32 with ESP-IDF. See README.md for usage.
+//
+// Author: ESPerto Contributors
+// Date: 2025-05-20
+// License: MIT
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"

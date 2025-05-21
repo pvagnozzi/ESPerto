@@ -1,3 +1,13 @@
+// main.c
+// ESPerto main application entry point
+//
+// This file initializes the ESP32, prints chip information, starts OTA WiFi update,
+// and manages the main restart loop. See README.md for project details.
+//
+// Author: ESPerto Contributors
+// Date: 2025-05-20
+// License: MIT
+
 #include <stdio.h>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
