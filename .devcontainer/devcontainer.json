@@ -1,33 +1,91 @@
 {
-    "name": "ESPerto DevContainer",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "name": "ESPerto ESP32 Development",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    
     "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/devcontainers/features/pwsh:1": {},
-        "ghcr.io/devcontainers/features/git:1": {},
-        "ghcr.io/devcontainers/features/cmake:1": {},
-        "ghcr.io/devcontainers/features/python:1": {},
-        "ghcr.io/devcontainers/features/platformio:1": {},
-        "ghcr.io/devcontainers/features/esp-idf:1": {
-            "version": "5.1.2"
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "installOhMyZsh": true,
+            "upgradePackages": true,
+            "username": "vscode",
+            "userUid": "automatic",
+            "userGid": "automatic"
         }
     },
+
     "customizations": {
         "vscode": {
-            "settings": {
-                "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-                "idf.espIdfPath": "/opt/esp/idf"
-            },
             "extensions": [
                 "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.cmake-tools",
+                "twxs.cmake",
+                "ms-python.python",
+                "ms-python.pylint",
                 "platformio.platformio-ide",
                 "espressif.esp-idf-extension",
-                "ms-vscode.cmake-tools"
-            ]
+                "ms-vscode.vscode-serial-monitor",
+                "marus25.cortex-debug",
+                "dan-c-underwood.arm",
+                "redhat.vscode-yaml",
+                "ms-vscode.hexeditor",
+                "formulahendry.terminal-here",
+                "ms-vscode.vscode-json"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "cmake.configureOnOpen": false,
+                "C_Cpp.default.cppStandard": "c++17",
+                "C_Cpp.default.cStandard": "c17",
+                "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+                "C_Cpp.intelliSenseEngine": "default",  
+                "C_Cpp.errorSquiggles": "enabled",
+                "python.defaultInterpreterPath": "/usr/local/bin/python3",
+                "platformio-ide.useBuiltinPython": false,
+                "platformio-ide.activateOnlyOnPlatformIOProject": true,
+                "files.associations": {
+                    "*.hpp": "cpp",
+                    "*.cpp": "cpp",
+                    "*.h": "c",
+                    "*.c": "c"
+                }
+            }
         }
     },
+    
+    "remoteUser": "vscode",
+    
     "mounts": [
-        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+        "source=/dev,target=/dev,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/.platformio,target=/home/vscode/.platformio,type=bind,consistency=cached"
     ],
-    "workspaceFolder": "/workspace"
+    
+    "runArgs": [
+        "--privileged",
+        "--device-cgroup-rule=c 188:* rmw"
+    ],
+    
+    "forwardPorts": [
+        3333,
+        8080,
+        5000
+    ],
+    
+    "portsAttributes": {
+        "3333": {
+            "label": "OpenOCD Debug Server",
+            "onAutoForward": "silent"
+        },
+        "8080": {
+            "label": "Web Server",
+            "onAutoForward": "notify"
+        },
+        "5000": {
+            "label": "Development Server",
+            "onAutoForward": "notify"
+        }
+    }
 }

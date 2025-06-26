@@ -28,13 +28,15 @@ public:
     virtual bool equals(const Object& other) const {
         return this == &other;
     }
-
+    
     /**
-     * @brief Assignment operator (must be implemented by derived classes).
-     * @param other The object to assign from.
-     * @return Reference to this object.
+     * @brief Equals operators.
+     * @param other The object to compare.
+     * @return True if object are equals.
      */
-    virtual Object& operator=(const Object& other) = 0;
+    inline bool operator==(const Object& other) const {
+        return equals(other);
+    }
 
     /**
      * @brief Returns a hash code based on the object's pointer.
@@ -43,6 +45,8 @@ public:
     virtual size_t hashCode() const {
         return reinterpret_cast<size_t>(this);
     }
+
+
 };
 
 } // namespace esperto
