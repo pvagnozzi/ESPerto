@@ -14,16 +14,27 @@ extern "C" {
 #include "freertos/task.h"
 #include "esp_chip_info.h"
 #include "esp_flash.h"
-#include "ota_wifi.h"
 }
 #include <cstdio>
+#include "../lib/esperto/headers/task.hpp"
+
+// Example of a FreeRTOS-compatible task function
+void example_task(void* pvParameters) {
+    while (true) {
+        printf("[Task] Task running!\n");
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
+    }
+}
 
 extern "C" void app_main(void)
 {
     printf("Hello world!\n");
 
-    // Avvia OTA WiFi (modifica l'URL e le credenziali in ota_wifi.cpp)
-    start_wifi_ota_task(OTA_URL);
+    // Start an example task using the C++ wrapper
+    static esperto::Task myTask("ExampleTask", example_task);
+
+    // Start OTA WiFi (edit URL and credentials in ota_wifi.cpp)
+
 
     /* Print chip information */
     esp_chip_info_t chip_info;
